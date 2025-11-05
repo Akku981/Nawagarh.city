@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nawagarh Website</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- SwiperJS for Swipe Slider -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <!-- Tailwind Config for Neon Glow -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { neon: '#38bdf8' },
+          keyframes: {
+            glow: {
+              '0%, 100%': { boxShadow: '0 0 12px rgba(56,189,248,0.25), 0 0 24px rgba(56,189,248,0.15)' },
+              '50%': { boxShadow: '0 0 18px rgba(56,189,248,0.5), 0 0 40px rgba(56,189,248,0.25)' }
+            }
+          },
+          animation: { 'border-glow': 'glow 3s ease-in-out infinite' }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .tilt { transition: transform 0.35s ease, box-shadow 0.2s ease; }
+    .tilt:hover { transform: rotateX(8deg) rotateY(-8deg) scale(1.03); box-shadow: 0 12px 24px rgba(56,189,248,0.35); }
+    .hero-bg { background-position: center; background-size: cover; background-repeat: no-repeat; }
+    .glow-border { border-radius: 20px; border: 1px solid rgba(56,189,248,0.3); animation: glow 3s ease-in-out infinite; background: linear-gradient(145deg, rgba(240,249,255,0.98), rgba(225,245,255,0.95)); }
+    body.modal-open { overflow: hidden; }
+    #imgModal, #infoModal, #devModal { background: rgba(0,0,0,0.8); backdrop-filter: blur(6px); display: none; }
+    #imgModal.show, #infoModal.show, #devModal.show { display: flex; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+    .modal-img, .modal-dev-img { max-height: 90vh; max-width: 90vw; border-radius: 12px; box-shadow: 0 0 40px rgba(56,189,248,0.6); }
+
+    .dev-img { transition: transform 220ms ease, box-shadow 220ms ease; cursor: pointer; }
+    .hero-overlay-strong { background-color: rgba(255,255,255,0.8); backdrop-filter: blur(8px); }
+    .hi-paragraph { color: rgba(56, 43, 56, 1); font-weight: 500; line-height: 1.7; }
+    
+    /* Responsive images and text */
+    img { max-width: 100%; height: auto; }
+    .swiper-slide img { object-fit: cover; width: 100%; height: 220px; }
+    @media (max-width: 640px) {
+      h1 { font-size: 1.8rem; }
+      .hi-paragraph { font-size: 0.95rem; }
+      .swiper-slide img { height: 180px; }
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-b from-sky-100 via-sky-50 to-sky-100 text-slate-800 antialiased">
+  <div class="max-w-5xl mx-auto p-4 md:p-6 flex flex-col min-h-screen glow-border">
+
+    <!-- 🟦 Banner -->
+    <header class="mb-6 rounded-xl overflow-hidden shadow-xl">
+      <img src="nawagarh.png" alt="Banner" class="w-full h-auto md:h-40 object-contain md:object-cover">
+    </header>
+
+    <!-- 🏙️ Navagarh Section -->
+    <section class="relative rounded-xl overflow-hidden mb-6 shadow-lg">
+      <div class="hero-bg absolute inset-0" style="background-image: url('Arjun.png');"></div>
+      <div class="absolute inset-0 hero-overlay-strong"></div>
+
+      <div class="relative p-6 md:p-10 flex flex-col md:flex-row items-start gap-6">
+        <div class="md:w-2/3">
+          <h1 class="text-3xl md:text-4xl font-extrabold text-sky-700 drop-shadow">Nawagarh</h1>
+          <p class="mt-3 hi-paragraph text-base md:text-lg leading-relaxed">
+‌🌾 नवागढ़ — जांजगीर-चांपा का गौरव
+
+नवागढ़, छत्तीसगढ़ के जांजगीर-चांपा जिले का सबसे बड़ा ब्लॉक और एक विकसित नगर पंचायत है। यह नगर अपनी पारंपरिक संस्कृति, हरियाली और सादगीपूर्ण जीवनशैली के लिए प्रसिद्ध है। पहले यह कस्बा था, पर अब यह आधुनिक सुविधाओं से युक्त एक प्रगतिशील नगर बन चुका है।
+___________
+_____________
+_____________
+___________
+नवागढ़ वह स्थान है जहाँ गाँव की सादगी और शहर की सुविधाएँ एक साथ मिलती हैं।
+यह नगर अपनी मेहनतकश जनता, हरियाली और धार्मिक आस्था के कारण वाकई “जांजगीर-चांपा का गौरव” कहलाता है।
+          </p>
+        </div>
+        <div class="md:w-1/3 flex justify-center items-center">
+          <button id="infoBtn" class="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white/80 border border-sky-400 flex items-center justify-center shadow-lg animate-border-glow hover:scale-105 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 sm:h-10 sm:w-10 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2v20M2 12h20"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🌐 Explore More Section -->
+    <section class="mb-4 bg-white/90 rounded-xl p-6 shadow-xl">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 text-sky-700 drop-shadow-sm">Explore More</h2>
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide tilt rounded-lg bg-slate-50 shadow-md overflow-hidden cursor-pointer">
+            <img src="b1.jpg" alt="Place 1" class="zoomable">
+            <div class="p-4"><h3 class="font-bold text-sky-700 text-lg">लिंगेश्वर महादेव मंदिर ़</h3><p class="text-sm text-slate-600 mt-1">लिंगेश्वर मंदिर नवागढ़ का एक महत्वपूर्ण महादेव मंदिर है इसकी ऐसी मान्यता हैं कि यह शिव लिंग प्रकृति से उत्पन्न हुए हैं जिसका आकर बढ़ता रहा लेकिन अब शिव लिंग अपने वास्तविक रुप में विराजमान है</p></div>
+          </div>
+          <div class="swiper-slide tilt rounded-lg bg-slate-50 shadow-md overflow-hidden cursor-pointer">
+            <img src="k3.jpg" alt="Place 2" class="zoomable">
+            <div class="p-4"><h3 class="font-bold text-sky-700 text-lg">मां काली माता मंदिर</h3><p class="text-sm text-slate-600 mt-1">यह मंदिर नाथवा पारा में स्थित मंदिर है जिसे इसी मोहल्ले के लोगों द्वारा बनाया गया है.</p></div>
+          </div>
+          <div class="swiper-slide tilt rounded-lg bg-slate-50 shadow-md overflow-hidden cursor-pointer">
+            <img src="g1.jpg" alt="Place 3" class="zoomable">
+            <div class="p-4"><h3 class="font-bold text-sky-700 text-lg">मिनी पार्क</h3><p class="text-sm text-slate-600 mt-1">यह नवागढ़ में स्थित एक पार्क है जिसके अन्दर संतोषी माता का मंदिर है यहां बच्चों के लिए झूले भी लगे हुए हैं.</p></div>
+          </div>
+          <div class="swiper-slide tilt rounded-lg bg-slate-50 shadow-md overflow-hidden cursor-pointer">
+            <img src="p3.jpg" alt="Place 4" class="zoomable">
+            <div class="p-4"><h3 class="font-bold text-sky-700 text-lg">खरगोश पिकनिक स्पॉट</h3><p class="text-sm text-slate-600 mt-1">यहां picnic 🧺 जाने के लिए बेस्ट जगह है खरगोश पिकनिक स्पॉट.</p></div>
+          </div>
+          <div class="swiper-slide tilt rounded-lg bg-slate-50 shadow-md overflow-hidden cursor-pointer">
+            <img src="c1.jpg" alt="Place 5" class="zoomable">
+            <div class="p-4"><h3 class="font-bold text-sky-700 text-lg">क्रिकेट मैदान</h3><p class="text-sm text-slate-600 mt-1">यह क्रिकेट ग्राउंड नवागढ़ का हैं लेकिन नवागढ़ में ना होकर पोडी मोड़ में दिया गया है.</p></div>
+          </div>
+          <div class="swiper-slide tilt rounded-lg bg-slate-50 shadow-md overflow-hidden cursor-pointer">
+            <img src="u1.png" alt="Place 6" class="zoomable">
+            <div class="p-4"><h3 class="font-bold text-sky-700 text-lg">देवी मंदिर</h3><p class="text-sm text-slate-600 mt-1">इस मंदिर की मान्यता है की इसे पहले जमाने के राजा महाराजा द्वारा बनाया गया है और यह मंदिर बहुत ही प्रसिद्ध मन्दिर है नवागढ़ का.</p></div>
+          </div>
+        </div>
+        <div class="flex justify-center items-center gap-4 mt-6">
+          <div class="swiper-button-prev !text-sky-600"></div>
+          <div class="swiper-pagination !bottom-0"></div>
+          <div class="swiper-button-next !text-sky-600"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 👨‍💻 Footer -->
+    <footer class="mt-auto bg-white rounded-xl p-4 flex flex-col items-center justify-center shadow-lg text-center">
+      <div class="flex flex-col items-center gap-3">
+        <img id="devImage" src="Arjun.png" alt="Developer" class="w-16 h-16 rounded-full object-cover border-2 border-sky-400 shadow-lg dev-img" tabindex="0">
+        <p class="text-sm font-semibold text-sky-700">Developer</p>
+        <p class="text-xs text-slate-500">Designed & coded with ❤️</p>
+      </div>
+      <div class="text-xs text-slate-500 mt-2">© <span id="year"></span> Navagarh</div>
+    </footer>
+  </div>
+
+  <!-- 🖼️ Developer Fullscreen Modal -->
+  <div id="devModal" class="fixed inset-0 z-50 hidden items-center justify-center">
+    <button id="closeDevModal" class="absolute top-6 right-6 bg-white/30 hover:bg-white/60 text-white rounded-full p-2">✕</button>
+    <img id="devModalImage" src="Arjun.png" alt="Developer Full" class="modal-dev-img transition-all duration-300">
+  </div>
+
+  <!-- 🖼️ Image Modal -->
+  <div id="imgModal" class="fixed inset-0 z-50 hidden items-center justify-center">
+    <button id="closeModal" class="absolute top-6 right-6 bg-white/30 hover:bg-white/60 text-white rounded-full p-2">✕</button>
+    <img id="modalImage" src="" alt="Zoom Image" class="modal-img transition-all duration-300">
+  </div>
+
+  <!-- 🏙️ Info Modal -->
+  <div id="infoModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white/90 rounded-2xl shadow-2xl p-6 max-w-lg w-full text-center relative animate-border-glow">
+      <button id="closeInfo" class="absolute top-4 right-4 text-sky-600 text-2xl font-bold hover:text-sky-800">×</button>
+      <img src="ng.png" alt="Navagarh Info" class="w-full h-48 object-cover rounded-xl mb-4 shadow-lg">
+      <h2 class="text-2xl font-bold text-sky-700 mb-2">About Navagarh</h2>
+      <p class="text-slate-700 text-sm leading-relaxed">
+    🌾 नवागढ़, छत्तीसगढ़ के जांजगीर-चांपा जिले का सबसे बड़ा ब्लॉक और एक विकसित नगर पंचायत है। यह नगर अपनी पारंपरिक संस्कृति, हरियाली और सादगीपूर्ण जीवनशैली के लिए प्रसिद्ध है। पहले यह कस्बा था, पर अब यह आधुनिक सुविधाओं से युक्त एक प्रगतिशील नगर बन चुका है।
+      </p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const swiper = new Swiper(".mySwiper", {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      grabCursor: true,
+      pagination: { el: ".swiper-pagination", clickable: true },
+      navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+      breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+    });
+
+    // Image Modal
+    const modal = document.getElementById('imgModal');
+    const modalImg = document.getElementById('modalImage');
+    const closeModal = document.getElementById('closeModal');
+    document.querySelectorAll('.zoomable').forEach(img => {
+      img.addEventListener('click', () => {
+        modalImg.src = img.src;
+        modal.classList.remove('hidden');
+        modal.classList.add('show');
+        document.body.classList.add('modal-open');
+      });
+    });
+    closeModal.addEventListener('click', () => {
+      modal.classList.add('hidden'); modal.classList.remove('show'); document.body.classList.remove('modal-open');
+    });
+    modal.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.add('hidden'); modal.classList.remove('show'); document.body.classList.remove('modal-open'); } });
+
+    // Info Modal
+    const infoBtn = document.getElementById('infoBtn');
+    const infoModal = document.getElementById('infoModal');
+    const closeInfo = document.getElementById('closeInfo');
+    infoBtn.addEventListener('click', () => {
+      infoModal.classList.remove('hidden'); infoModal.classList.add('show'); document.body.classList.add('modal-open');
+    });
+    closeInfo.addEventListener('click', () => {
+      infoModal.classList.add('hidden'); infoModal.classList.remove('show'); document.body.classList.remove('modal-open');
+    });
+    infoModal.addEventListener('click', (e) => {
+      if (e.target === infoModal) {
+        infoModal.classList.add('hidden'); infoModal.classList.remove('show'); document.body.classList.remove('modal-open');
+      }
+    });
+
+    // Developer Image Fullscreen Modal
+    const devImage = document.getElementById('devImage');
+    const devModal = document.getElementById('devModal');
+    const closeDevModal = document.getElementById('closeDevModal');
+    const devModalImage = document.getElementById('devModalImage');
+
+    devImage.addEventListener('click', () => {
+      devModalImage.src = devImage.src;
+      devModal.classList.remove('hidden');
+      devModal.classList.add('show');
+      document.body.classList.add('modal-open');
+    });
+
+    closeDevModal.addEventListener('click', () => {
+      devModal.classList.add('hidden');
+      devModal.classList.remove('show');
+      document.body.classList.remove('modal-open');
+    });
+
+    devModal.addEventListener('click', (e) => {
+      if (e.target === devModal) {
+        devModal.classList.add('hidden');
+        devModal.classList.remove('show');
+        document.body.classList.remove('modal-open');
+      }
+    });
+  </script>
+</body>
+</html>
